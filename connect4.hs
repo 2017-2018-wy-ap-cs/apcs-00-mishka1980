@@ -93,11 +93,11 @@ leftDiagonal xs = foldCheck (map helpCheck (diagonals xs))
 rightDiagonal :: [[Int]] -> [Char]
 rightDiagonal xs = foldCheck $ map helpCheck $ diagonals $ map reverse xs
 
-winner :: [[Int]] -> IO ()
+winner :: [[Int]] -> [Char]
 winner xs
-    | elem "Player1" [horizontalCheck xs, rowCheck xs, leftDiagonal xs, rightDiagonal xs] = putStrLn "Player 1 wins!"
-    | elem "Player2" [horizontalCheck xs, rowCheck xs, leftDiagonal xs, rightDiagonal xs] = putStrLn "Player 2 wins!"
-    | otherwise = putStrLn "No Winner yet!"
+    | elem "Player1" [horizontalCheck xs, rowCheck xs, leftDiagonal xs, rightDiagonal xs] =  "Player 1 wins!"
+    | elem "Player2" [horizontalCheck xs, rowCheck xs, leftDiagonal xs, rightDiagonal xs] = "Player 2 wins!"
+    | otherwise = "No Winner yet!"
 
 
 {--
@@ -114,7 +114,7 @@ event_loop:
 
 type Board = [[Int]]
 drawBoard = displayer
-is_won = (\x -> False)
+is_won =(\board -> ((winner board) == "Player 1 wins!") || ((winner board) == "Player 2 wins!"))
 make_move board t int = (\x -> droptile board int t)
 is_move_legal = (\board col-> elem 0 (board!!col))
 main :: IO()
